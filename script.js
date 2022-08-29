@@ -171,6 +171,7 @@ let calcDamage = function (power) {
   document
     .querySelector("#cpu-pokemon img")
     .classList.remove("receiveDamageAnimation");
+  console.log("test damage");
   if (turnCounter === 1) {
     inflictComputerDamage();
   } else if (turnCounter === 0) {
@@ -209,7 +210,6 @@ let inflictDamage = function () {
     document
       .querySelector("#cpu-pokemon img")
       .classList.add("receiveDamageAnimation");
-    document.document.querySelector("#cpu-actual");
 
     turnCounter = 1;
 
@@ -267,14 +267,17 @@ let cpuTurn = function () {
     } else if (randomNum > 25 && randomNum <= 50) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leech Seed`;
       slot2.textContent = "";
+      grassKnot();
       setTimeout(resetMenu, 2000);
     } else if (randomNum > 50 && randomNum <= 75) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Grass Knot`;
       slot2.textContent = "";
+      grassKnot();
       setTimeout(resetMenu, 2000);
     } else if (randomNum > 75 && randomNum <= 100) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leer`;
       slot2.textContent = "";
+      grassKnot();
       setTimeout(resetMenu, 2000);
     }
   } else {
