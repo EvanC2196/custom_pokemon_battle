@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 600px;
+  height: 450px;
+  border: 3px solid black;
+  position: relative;
+  background-color: lightgray;
+}
+
+.text {
+  cursor: default;
+}
+
+#action-box {
+  border: 3px solid black;
+  height: 125px;
+  width: 594px;
+  position: absolute;
+  top: 320px;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 40px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.user-stats {
+  border: 1px solid black;
+  width: 250px;
+  padding: 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 240px;
+  left: 300px;
+  background-color: rgb(240, 212, 175);
+}
+
+#user-max {
+  width: 200px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#user-actual {
+  width: 200px;
+  height: 15px;
+  border: 1px solid black;
+  position: relative;
+  bottom: 15px;
+  background-color: lightgreen;
+  border-radius: 5px;
+}
+
+#user-pokemon img {
+  position: absolute;
+  top: 175px;
+  left: 20px;
+  height: 200px;
+  width: 200px;
+}
+
+.cpu-stats {
+  border: 1px solid black;
+  padding: 5px;
+  width: 250px;
+  position: absolute;
+  border-radius: 10px;
+  top: 25px;
+  right: 300px;
+  background-color: rgb(240, 212, 175);
+}
+
+#cpu-name {
+  top: 25px;
+  right: 275px;
+}
+
+#cpu-max {
+  width: 200px;
+  height: 15px;
+  border: 1px solid black;
+
+  top: 50px;
+  right: 175px;
+  border-radius: 5px;
+}
+
+#cpu-actual {
+  width: 200px;
+  height: 15px;
+  border: 1px solid black;
+  position: relative;
+  bottom: 15px;
+
+  background-color: lightgreen;
+  border-radius: 5px;
+}
+
+#cpu-pokemon img {
+  position: absolute;
+  top: 25px;
+  right: 50px;
+  height: 150px;
+  width: 150px;
+}
+
+.receiveDamageAnimation {
+  animation: receiveDamage;
+  animation-duration: 0.5s;
+  animation-iteration-count: 3;
+}
+
+@keyframes receiveDamage {
+  from {
+    margin-right: 10px;
+  }
+  to {
+    margin-left: 10px;
+  }
+}
+
+.activatHealthAnimation {
+  animation: healthAnimation;
+  animation-duration: 3s;
+}
+
+@keyframes healthAnimation {
+  from {
+    width: 200px;
+  }
+  to {
+    width: 0px;
+  }
+}
