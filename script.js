@@ -62,6 +62,7 @@ const slot3 = document.querySelector("#slot3");
 const slot4 = document.querySelector("#slot4");
 
 const userPokemonName = document.querySelector("#user-name");
+const cpuPokemonName = document.querySelector("#cpu-name");
 
 const cpuPokemonImage = document.querySelector("#cpu-pokemon img");
 
@@ -180,7 +181,7 @@ let calcDamage = function (power) {
 };
 
 let inflictDamage = function () {
-  if (damage > cpuPokemon[currentCpuPokemon].currentHealth) {
+  if (damage >= cpuPokemon[currentCpuPokemon].currentHealth) {
     console.log("asdfdsf");
     damage = cpuPokemon[currentCpuPokemon].currentHealth;
     cpuPokemon[currentCpuPokemon].currentHealth =
@@ -190,13 +191,12 @@ let inflictDamage = function () {
       cpuPokemon[currentCpuPokemon].health;
     document.querySelector("#cpu-actual").style.width =
       200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
-
+    console.log("wowza");
     document
       .querySelector("#cpu-pokemon img")
       .classList.add("receiveDamageAnimation");
-
+    faintedCPU();
     turnCounter = 1;
-    setTimeout(cpuTurn, 1500);
   } else {
     console.log("me");
     cpuPokemon[currentCpuPokemon].currentHealth =
@@ -227,6 +227,7 @@ let inflictComputerDamage = function () {
       userPokemon[currentUserPokemon].health;
     document.querySelector("#user-actual").style.width =
       200 * userPokemon[currentUserPokemon].percentWidth + "px";
+
     turnCounter = 0;
 
     console.log("test");
@@ -254,6 +255,51 @@ let newUserPokemon = function () {
   }
   turnCounter = 1;
   cpuTurn();
+};
+
+let checkUndefined = function () {
+  currentCpuPokemon = Math.floor(Math.random() * 4);
+  if (cpuPokemon[currentCpuPokemon] === undefined) {
+    checkUndefined();
+  } else {
+    newCpuPokemon();
+  }
+};
+
+let faintedCPU = function () {
+  delete cpuPokemon[currentCpuPokemon];
+  console.log(cpuPokemon);
+  checkUndefined();
+};
+
+let newCpuPokemon = function () {
+  switch (currentCpuPokemon) {
+    case 0:
+      cpuPokemonName.textContent = "Guinli";
+      break;
+    case 1:
+      setTimeout(sendOutAstroText, 3000);
+      setTimeout(sendOutAstro, 4000);
+      break;
+  }
+};
+
+let sendOutAstroText = function () {
+  slot1.textContent = "Chad sent out Astro";
+  slot2.textContent = "";
+  slot3.textContent = "";
+  slot4.textContent = "";
+};
+
+let sendOutAstro = function () {
+  cpuPokemonName.textContent = "Astro";
+  document.querySelector("#cpu-pokemon img").src =
+    "https://img.pokemondb.net/sprites/firered-leafgreen/normal/golem.png";
+
+  document.querySelector("#cpu-actual").style.width =
+    200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+  setTimeout(resetMenu, 2000);
+  turnCounter = 0;
 };
 
 let cpuTurn = function () {
@@ -284,6 +330,7 @@ let cpuTurn = function () {
     console.log(
       "remove current pokemon from array and randomly select a new one"
     );
+    faintedCPU();
   }
 };
 
