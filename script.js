@@ -26,7 +26,7 @@ let guinliStats = {
   type2: grass,
   health: 200,
   currentHealth: 200,
-  attack: 55,
+  attack: 5000,
   defense: 40,
   percentWidth: 1,
 };
@@ -35,7 +35,7 @@ let astroStats = {
   name: "Astro",
   type1: "dragon",
   type2: dark,
-  health: 300,
+  health: 500,
   attack: 134,
   defense: 95,
   currentHealth: 500,
@@ -112,6 +112,7 @@ let nightSlash = function () {
   console.log("Mar used night slash");
   moveType = dark;
   calcDamage(nightSlashPower);
+  console.log(turnCounter);
 };
 
 let grassKnot = function () {
@@ -157,26 +158,43 @@ let calcDamage = function (power) {
   console.log(critical);
   console.log(moveType);
   console.log(userPokemon[currentUserPokemon].type1);
-  damage =
-    ((((2 * 50 * critical) / 5 + 2) *
-      power *
-      userPokemon[currentUserPokemon].attack) /
-      cpuPokemon[currentCpuPokemon].defense /
-      50 +
-      2) *
-    stab *
-    effectiveness1 *
-    effectiveness2;
-  console.log(damage);
-  console.log(turnCounter);
-  document
-    .querySelector("#cpu-pokemon img")
-    .classList.remove("receiveDamageAnimation");
-  console.log("test damage");
-  if (turnCounter === 1) {
-    inflictComputerDamage();
-  } else if (turnCounter === 0) {
+  if (turnCounter === 0) {
+    damage =
+      ((((2 * 50 * critical) / 5 + 2) *
+        power *
+        userPokemon[currentUserPokemon].attack) /
+        cpuPokemon[currentCpuPokemon].defense /
+        50 +
+        2) *
+      stab *
+      effectiveness1 *
+      effectiveness2;
+    console.log(damage);
+    console.log(turnCounter);
+    document
+      .querySelector("#cpu-pokemon img")
+      .classList.remove("receiveDamageAnimation");
+    console.log("test damage");
+
     inflictDamage();
+  } else if (turnCounter === 1) {
+    damage =
+      ((((2 * 50 * critical) / 5 + 2) *
+        power *
+        cpuPokemon[currentCpuPokemon].attack) /
+        userPokemon[currentUserPokemon].defense /
+        50 +
+        2) *
+      stab *
+      effectiveness1 *
+      effectiveness2;
+    console.log(damage);
+    console.log(turnCounter);
+    document
+      .querySelector("#cpu-pokemon img")
+      .classList.remove("receiveDamageAnimation");
+
+    inflictComputerDamage();
   }
 };
 
@@ -213,12 +231,12 @@ let inflictDamage = function () {
 
     turnCounter = 1;
 
-    setTimeout(cpuTurn, 1500);
+    setTimeout(cpuTurn, 3000);
   }
 };
 
 let inflictComputerDamage = function () {
-  if (damage > userPokemon[currentUserPokemon].health) {
+  if (damage >= userPokemon[currentUserPokemon].health) {
     damage = userPokemon[currentUserPokemon].health;
     userPokemon[currentUserPokemon].currentHealth =
       userPokemon[currentUserPokemon].health - damage;
@@ -229,7 +247,7 @@ let inflictComputerDamage = function () {
       200 * userPokemon[currentUserPokemon].percentWidth + "px";
 
     turnCounter = 0;
-
+    faintedUser();
     console.log("test");
   } else {
     userPokemon[currentUserPokemon].currentHealth =
@@ -268,8 +286,28 @@ let checkUndefined = function () {
 
 let faintedCPU = function () {
   delete cpuPokemon[currentCpuPokemon];
-  console.log(cpuPokemon);
-  checkUndefined();
+  if (cpuPokemon[0] === undefined && cpuPokemon[1] === undefined) {
+    console.log("YOU WIN");
+  } else {
+    console.log(cpuPokemon);
+    checkUndefined();
+  }
+};
+
+let faintedUser = function () {
+  delete userPokemon[currentUserPokemon];
+  if (userPokemon[0] === undefined && userPokemon[1] === undefined) {
+    console.log("YOU LOSE");
+  } else {
+    pickNewPokemon();
+  }
+};
+
+let pickNewPokemon = function () {
+  slot1.textContent = "Marcy";
+  slot2.textContent = userPokemon[1].name;
+  slot3.textContent = "";
+  slot4.textContent = "";
 };
 
 let newCpuPokemon = function () {
@@ -303,25 +341,50 @@ let sendOutAstro = function () {
 };
 
 let cpuTurn = function () {
-  if (cpuPokemon[currentCpuPokemon].currentHealth > 0) {
+  if (
+    cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
+    currentCpuPokemon === 0
+  ) {
     randomNum = Math.random() * 100;
     if (randomNum <= 25) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Psychic`;
       slot2.textContent = "";
+      setTimeout(grassKnot, 1000);
+    } else if (randomNum > 25 && randomNum <= 50) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leech Seed`;
+      slot2.textContent = "";
+      setTimeout(grassKnot, 1000);
+    } else if (randomNum > 50 && randomNum <= 75) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Grass Knot`;
+      slot2.textContent = "";
+      setTimeout(grassKnot, 1000);
+    } else if (randomNum > 75 && randomNum <= 100) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leer`;
+      slot2.textContent = "";
+      setTimeout(grassKnot, 1000);
+    }
+  } else if (
+    cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
+    currentCpuPokemon === 1
+  ) {
+    randomNum = Math.random() * 100;
+    if (randomNum <= 25) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Draco Meteor`;
+      slot2.textContent = "";
       grassKnot();
       setTimeout(resetMenu, 2000);
     } else if (randomNum > 25 && randomNum <= 50) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leech Seed`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Shadow Claw`;
       slot2.textContent = "";
       grassKnot();
       setTimeout(resetMenu, 2000);
     } else if (randomNum > 50 && randomNum <= 75) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Grass Knot`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Crunch`;
       slot2.textContent = "";
       grassKnot();
       setTimeout(resetMenu, 2000);
     } else if (randomNum > 75 && randomNum <= 100) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leer`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Dragon Claw`;
       slot2.textContent = "";
       grassKnot();
       setTimeout(resetMenu, 2000);
