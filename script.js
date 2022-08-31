@@ -1,15 +1,7 @@
 let moveType = "";
 
-let roar = function () {
-  calcDamage(roarPower);
-};
-
-const nightSlash = function () {
-  console.log("Mar used night slash");
-
-  calcDamage(nightSlashPower);
-  console.log(turnCounter);
-};
+let nightSlash = 60;
+let roar = 20;
 
 const dark = "dark";
 let fairy = "fairy";
@@ -29,7 +21,8 @@ let marcyStats = {
   move2: "Roar",
   move3: "Quick Attack",
   move4: "Fairy Wind",
-
+  move1Power: nightSlash,
+  move2Power: roar,
   move3Function: "Quick Attack",
   move4Function: "Fairy Wind",
 };
@@ -101,10 +94,7 @@ let critCalc = function () {
 let calcDamage = function (power) {
   critCalc();
   stabCalc();
-  console.log(stab);
-  console.log(critical);
-  console.log(moveType);
-  console.log(userPokemon[currentUserPokemon].type1);
+
   if (turnCounter === 0) {
     damage =
       ((((2 * 50 * critical) / 5 + 2) *
@@ -117,11 +107,10 @@ let calcDamage = function (power) {
       effectiveness1 *
       effectiveness2;
     console.log(damage);
-    console.log(turnCounter);
+
     document
       .querySelector("#cpu-pokemon img")
       .classList.remove("receiveDamageAnimation");
-    console.log("test damage");
 
     inflictDamage();
   } else if (turnCounter === 1) {
@@ -136,7 +125,7 @@ let calcDamage = function (power) {
       effectiveness1 *
       effectiveness2;
     console.log(damage);
-    console.log(turnCounter);
+
     document
       .querySelector("#cpu-pokemon img")
       .classList.remove("receiveDamageAnimation");
@@ -146,8 +135,6 @@ let calcDamage = function (power) {
 };
 
 let grassKnot = function () {
-  console.log(turnCounter);
-  console.log("grass knot");
   moveType = grass;
   calcDamage(grassKnotPower);
 };
@@ -185,13 +172,12 @@ slot1.addEventListener("click", function () {
     slot3.textContent = userPokemon[currentUserPokemon].move3;
     slot4.textContent = userPokemon[currentUserPokemon].move4;
     mainTree = 1;
-    console.log(mainTree);
   } else if (mainTree === 1) {
     slot1.textContent = `${userPokemon[currentUserPokemon].name} used ${userPokemon[currentUserPokemon].move1}`;
     slot2.textContent = "";
     slot3.textContent = "";
     slot4.textContent = "";
-    nightSlash();
+    calcDamage(userPokemon[currentUserPokemon].move1Power);
   } else if (mainTree === 2) {
     currentUserPokemon = 0;
     console.log(`send out ${userPokemon[currentUserPokemon].name}`);
@@ -210,7 +196,7 @@ slot2.addEventListener("click", function () {
     slot2.textContent = "";
     slot3.textContent = "";
     slot4.textContent = "";
-    roar();
+    calcDamage(userPokemon[currentUserPokemon].move2Power);
   } else if (mainTree === 2) {
     console.log("send out Brisket");
     currentUserPokemon = 1;
@@ -290,7 +276,6 @@ let inflictDamage = function () {
     faintedCPU();
     turnCounter = 1;
   } else {
-    console.log("me");
     cpuPokemon[currentCpuPokemon].currentHealth =
       cpuPokemon[currentCpuPokemon].currentHealth - damage;
     cpuPokemon[currentCpuPokemon].percentWidth =
@@ -333,7 +318,6 @@ let inflictComputerDamage = function () {
       200 * userPokemon[currentUserPokemon].percentWidth + "px";
     turnCounter = 0;
     resetMenu();
-    console.log("test");
   }
 };
 
