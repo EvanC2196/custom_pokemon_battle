@@ -28,6 +28,7 @@ body {
   font-size: 40px;
   align-items: center;
   justify-content: space-around;
+  padding: 10px;
 }
 
 .user-stats {
@@ -138,4 +139,20 @@ body {
   to {
     width: 0px;
   }
+}
+
+#slot1container:hover {
+  opacity: 0.5;
+}
+
+#slot2container:hover {
+  opacity: 0.5;
+}
+
+#slot3container:hover {
+  opacity: 0.5;
+}
+
+#slot4container:hover {
+  opacity: 0.5;
 }
