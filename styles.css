@@ -127,6 +127,7 @@ body {
   }
 }
 
+/*
 .activatHealthAnimation {
   animation: healthAnimation;
   animation-duration: 3s;
@@ -138,6 +139,21 @@ body {
   }
   to {
     width: 0px;
+  }
+} */
+
+.userAttackAnimation {
+  animation: userAttack;
+  animation-duration: 0.25s;
+  animation-iteration-count: 2;
+}
+
+@keyframes userAttack {
+  from {
+    left: 20px;
+  }
+  to {
+    left: 60px;
   }
 }
 

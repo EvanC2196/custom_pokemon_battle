@@ -1,14 +1,19 @@
-let moveType = "";
+const slot1 = document.querySelector("#slot1");
+const slot2 = document.querySelector("#slot2");
+const slot3 = document.querySelector("#slot3");
+const slot4 = document.querySelector("#slot4");
 
-let nightSlash = 300;
-let roar = 20;
-let quickAttack = 40;
-let fairyWind = 100;
+let moveType = "";
 
 const dark = "dark";
 let fairy = "fairy";
 let psychic = "psychic";
 let grass = "grass";
+
+let nightSlash = 300;
+let roar = 20;
+let quickAttack = 40;
+let fairyWind = 100;
 
 let marcyStats = {
   name: "Marcy",
@@ -50,6 +55,7 @@ let guinliStats = {
   type2: grass,
   health: 200,
   currentHealth: 200,
+  oldHealth: 0,
   attack: 100,
   defense: 40,
   percentWidth: 1,
@@ -84,105 +90,6 @@ let astroStats = {
 
 let userPokemon = [marcyStats, brisketStats, "test", "test2"];
 let cpuPokemon = [guinliStats, astroStats];
-
-let stabCalc = function () {
-  if (
-    userPokemon[currentUserPokemon].type1 === moveType ||
-    userPokemon[currentUserPokemon].type1 === moveType
-  ) {
-    stab = 1.5;
-    console.log("stab");
-  } else {
-    stab = 1;
-  }
-};
-
-let critical = 1;
-let randomNum = 1;
-
-let critCalc = function () {
-  randomNum = Math.random() * 100;
-  if (randomNum <= 6.25) {
-    critical = 2;
-  } else {
-    critical = 1;
-  }
-};
-
-let calcDamage = function (power) {
-  critCalc();
-  stabCalc();
-
-  if (turnCounter === 0) {
-    damage =
-      ((((2 * 50 * critical) / 5 + 2) *
-        power *
-        userPokemon[currentUserPokemon].attack) /
-        cpuPokemon[currentCpuPokemon].defense /
-        50 +
-        2) *
-      stab *
-      effectiveness1 *
-      effectiveness2;
-    console.log(damage);
-
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
-
-    inflictDamage();
-    console.log("me");
-  } else if (turnCounter === 1) {
-    damage =
-      ((((2 * 50 * critical) / 5 + 2) *
-        power *
-        cpuPokemon[currentCpuPokemon].attack) /
-        userPokemon[currentUserPokemon].defense /
-        50 +
-        2) *
-      stab *
-      effectiveness1 *
-      effectiveness2;
-    console.log(damage);
-
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
-
-    inflictComputerDamage();
-  }
-};
-
-let grassKnot = function () {
-  moveType = grass;
-  calcDamage(grassKnotPower);
-};
-
-let effectiveness1 = 1;
-let effectiveness2 = 1;
-
-let nightSlashPower = 300;
-let grassKnotPower = 200;
-let roarPower = 20;
-
-const slot1 = document.querySelector("#slot1");
-const slot2 = document.querySelector("#slot2");
-const slot3 = document.querySelector("#slot3");
-const slot4 = document.querySelector("#slot4");
-
-const userPokemonName = document.querySelector("#user-name");
-const cpuPokemonName = document.querySelector("#cpu-name");
-
-const cpuPokemonImage = document.querySelector("#cpu-pokemon img");
-
-let currentCpuPokemon = 0;
-let currentUserPokemon = 0;
-let mainTree = 0;
-let damage = 0;
-
-let stab = 1.5;
-
-let turnCounter = 0;
 
 slot1.addEventListener("click", function () {
   if (mainTree === 0) {
@@ -269,12 +176,72 @@ slot4.addEventListener("click", function () {
   }
 });
 
-let effectivenessCalc = function () {
-  if (moveType === dark && cpuPokemon[currentCpuPokemon].type1 === "fighting") {
-    effectiveness1 = 0.5;
-  } else {
-    effectiveness1 = 1;
+let calcDamage = function (power) {
+  critCalc();
+  stabCalc();
+  document
+    .querySelector("#user-pokemon img")
+    .classList.add("userAttackAnimation");
+  if (turnCounter === 0) {
+    damage =
+      ((((2 * 50 * critical) / 5 + 2) *
+        power *
+        userPokemon[currentUserPokemon].attack) /
+        cpuPokemon[currentCpuPokemon].defense /
+        50 +
+        2) *
+      stab *
+      effectiveness1 *
+      effectiveness2;
+    console.log(damage);
+
+    document
+      .querySelector("#cpu-pokemon img")
+      .classList.remove("receiveDamageAnimation");
+
+    inflictDamage();
+    console.log("me");
+  } else if (turnCounter === 1) {
+    damage =
+      ((((2 * 50 * critical) / 5 + 2) *
+        power *
+        cpuPokemon[currentCpuPokemon].attack) /
+        userPokemon[currentUserPokemon].defense /
+        50 +
+        2) *
+      stab *
+      effectiveness1 *
+      effectiveness2;
+    console.log(damage);
+
+    document
+      .querySelector("#cpu-pokemon img")
+      .classList.remove("receiveDamageAnimation");
+
+    inflictComputerDamage();
   }
+};
+
+let stabCalc = function () {
+  if (
+    userPokemon[currentUserPokemon].type1 === moveType ||
+    userPokemon[currentUserPokemon].type1 === moveType
+  ) {
+    stab = 1.5;
+    console.log("stab");
+  } else {
+    stab = 1;
+  }
+};
+
+let changeHealth = function (i) {
+  setTimeout(function () {
+    cpuPokemon[currentCpuPokemon].percentWidth =
+      i / cpuPokemon[currentCpuPokemon].health;
+    document.querySelector("#cpu-actual").style.width =
+      200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+    console.log(i);
+  }, (200 - i) * 100);
 };
 
 let inflictDamage = function () {
@@ -295,21 +262,77 @@ let inflictDamage = function () {
     faintedCPU();
     turnCounter = 1;
   } else {
+    cpuPokemon[currentCpuPokemon].oldHealth =
+      cpuPokemon[currentCpuPokemon].currentHealth;
     cpuPokemon[currentCpuPokemon].currentHealth =
       cpuPokemon[currentCpuPokemon].currentHealth - damage;
-    cpuPokemon[currentCpuPokemon].percentWidth =
-      cpuPokemon[currentCpuPokemon].currentHealth /
-      cpuPokemon[currentCpuPokemon].health;
-    document.querySelector("#cpu-actual").style.width =
-      200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+
+    for (
+      let i = cpuPokemon[currentCpuPokemon].oldHealth;
+      i >= cpuPokemon[currentCpuPokemon].currentHealth;
+      i--
+    ) {
+      changeHealth(i);
+
+      console.log(i);
+      console.log(cpuPokemon[currentCpuPokemon].oldHealth);
+      console.log(cpuPokemon[currentCpuPokemon].percentWidth);
+    }
 
     document
       .querySelector("#cpu-pokemon img")
       .classList.add("receiveDamageAnimation");
 
     turnCounter = 1;
-
+    console.log(cpuPokemon[currentCpuPokemon].oldHealth);
+    console.log(cpuPokemon[currentCpuPokemon].currentHealth);
     setTimeout(cpuTurn, 500);
+  }
+};
+
+let critical = 1;
+let randomNum = 1;
+
+let critCalc = function () {
+  randomNum = Math.random() * 100;
+  if (randomNum <= 6.25) {
+    critical = 2;
+  } else {
+    critical = 1;
+  }
+};
+
+let grassKnot = function () {
+  moveType = grass;
+  calcDamage(grassKnotPower);
+};
+
+let effectiveness1 = 1;
+let effectiveness2 = 1;
+
+let nightSlashPower = 300;
+let grassKnotPower = 200;
+let roarPower = 20;
+
+const userPokemonName = document.querySelector("#user-name");
+const cpuPokemonName = document.querySelector("#cpu-name");
+
+const cpuPokemonImage = document.querySelector("#cpu-pokemon img");
+
+let currentCpuPokemon = 0;
+let currentUserPokemon = 0;
+let mainTree = 0;
+let damage = 0;
+
+let stab = 1.5;
+
+let turnCounter = 0;
+
+let effectivenessCalc = function () {
+  if (moveType === dark && cpuPokemon[currentCpuPokemon].type1 === "fighting") {
+    effectiveness1 = 0.5;
+  } else {
+    effectiveness1 = 1;
   }
 };
 
