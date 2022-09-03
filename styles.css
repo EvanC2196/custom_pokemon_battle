@@ -143,16 +143,34 @@ body {
 
 .userAttackAnimation {
   animation: userAttack;
-  animation-duration: 0.25s;
-  animation-iteration-count: 2;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
 }
 
 @keyframes userAttack {
-  from {
-    left: 20px;
+  0% {
+    left: 15px;
   }
-  to {
-    left: 60px;
+  75% {
+    left: 15px;
+  }
+  100% {
+    left: 80px;
+  }
+}
+
+.cpuFaintAnimation {
+  animation: cpuFaintAnimation;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cpuFaintAnimation {
+  0% {
+  }
+  100% {
+    margin-top: 100px;
+    opacity: 0;
   }
 }
 
@@ -170,4 +188,15 @@ body {
 
 #slot4container:hover {
   opacity: 0.5;
+}
+
+#oval {
+  width: 200px;
+  height: 75px;
+  background-color: darkgray;
+  border-radius: 50%;
+  position: absolute;
+  right: 35px;
+  top: 125px;
+  z-index: -1;
 }
