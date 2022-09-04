@@ -12,7 +12,7 @@ let moveType = "";
 
 const dark = "dark";
 let fairy = "fairy";
-let psychic = "psychic";
+
 let grass = "grass";
 
 let nightSlash = 70;
@@ -40,6 +40,10 @@ let iceRush = 80;
 let blizzard = 110;
 let surf = 90;
 let aquaVeil = 20;
+let psychic = 90;
+let leechSeed = 20;
+let grassKnot = 20;
+let glare = 20;
 
 let marcyStats = {
   name: "Marcy",
@@ -74,9 +78,9 @@ let brisketStats = {
   defense: 200,
   speed: 24,
   move1: "Steel Sound",
-  move2: "harden",
+  move2: "Harden",
   move3: "Metal Claw",
-  move4: "woodHammer",
+  move4: "Wood Hammer",
   move1Power: steelSound,
   move2Power: harden,
   move3Power: metalClaw,
@@ -206,6 +210,8 @@ slot1.addEventListener("click", function () {
     slot2.textContent = userPokemon[currentUserPokemon].move2;
     slot3.textContent = userPokemon[currentUserPokemon].move3;
     slot4.textContent = userPokemon[currentUserPokemon].move4;
+    title.textContent = `What will ${userPokemon[currentUserPokemon].name} do?`;
+    description.textContent = "";
     mainTree = 1;
   } else if (mainTree === 1) {
     slot1.textContent = `${userPokemon[currentUserPokemon].name} used ${userPokemon[currentUserPokemon].move1}`;
@@ -285,12 +291,31 @@ slot4.addEventListener("click", function () {
   }
 });
 
+let soundHolder = "";
+
+let sound = function (power) {
+  switch (power) {
+    case nightSlash:
+      console.log("audio test");
+      soundHolder = new Audio("Night Slash.mp3");
+
+      soundHolder.play();
+      break;
+
+    case quickAttack:
+      soundHolder = new Audio("Quick Attack.mp3");
+      soundHolder.play();
+      break;
+  }
+};
+
 let calcDamage = function (power) {
+  document.querySelector("#action-box div").style.flexBasis = `100%`;
+  document.querySelector("#action-box div").style.marginTop = `25px`;
   critCalc();
   stabCalc();
-  document
-    .querySelector("#user-pokemon img")
-    .classList.add("userAttackAnimation");
+  sound(power);
+  console.log("another fucking test");
   if (turnCounter === 0) {
     damage =
       ((((2 * 50 * critical) / 5 + 2) *
@@ -303,11 +328,9 @@ let calcDamage = function (power) {
       effectiveness1 *
       effectiveness2;
     console.log(damage);
-
     document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
-
+      .querySelector("#user-pokemon img")
+      .classList.add("userAttackAnimation");
     setTimeout(inflictDamage, 750);
   } else if (turnCounter === 1) {
     damage =
@@ -321,10 +344,6 @@ let calcDamage = function (power) {
       effectiveness1 *
       effectiveness2;
     console.log(damage);
-
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
 
     inflictComputerDamage();
   }
@@ -357,6 +376,8 @@ let changeHealth = function (i) {
 };
 
 let inflictDamage = function () {
+  title.textContent = "nicely done!";
+  description.textContent = "";
   if (damage >= cpuPokemon[currentCpuPokemon].currentHealth) {
     cpuPokemon[currentCpuPokemon].oldHealth =
       cpuPokemon[currentCpuPokemon].currentHealth;
@@ -369,10 +390,13 @@ let inflictDamage = function () {
     ) {
       changeHealth(i);
     }
-
+    document.querySelector("#cpu-pokemon img").classList.add("damageFlicker");
     setTimeout(faintedCPU, 2000);
     turnCounter = 1;
   } else {
+    title.textContent = "oof, would not have been my first choice";
+    description.textContent = "";
+
     cpuPokemon[currentCpuPokemon].oldHealth =
       cpuPokemon[currentCpuPokemon].currentHealth;
     cpuPokemon[currentCpuPokemon].currentHealth =
@@ -385,7 +409,7 @@ let inflictDamage = function () {
     ) {
       changeHealth(i);
     }
-
+    document.querySelector("#cpu-pokemon img").classList.add("damageFlicker");
     turnCounter = 1;
     console.log(cpuPokemon[currentCpuPokemon].oldHealth);
     console.log(cpuPokemon[currentCpuPokemon].currentHealth);
@@ -395,9 +419,7 @@ let inflictDamage = function () {
 
 let faintedCPU = function () {
   document.querySelector("#cpu-pokemon img").classList.add("cpuFaintAnimation");
-  document
-    .querySelector("#cpu-pokemon img")
-    .classList.remove("receiveDamageAnimation");
+
   console.log(currentCpuPokemon);
   delete cpuPokemon[currentCpuPokemon];
   if (
@@ -554,6 +576,8 @@ let changeUserHealth = function (i) {
 };
 
 let timeFill = function () {
+  document.querySelector("#action-box div").style.marginTop = `25px`;
+  document.querySelector("#action-box div").style.flexBasis = `100%`;
   slot1.textContent = "game is thinking...";
   slot2.textContent = "";
   slot3.textContent = "";
@@ -576,15 +600,11 @@ let inflictComputerDamage = function () {
       currentHealthNum.textContent = `${userPokemon[currentUserPokemon].currentHealth}/${userPokemon[currentUserPokemon].health}`;
     }
 
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.add("receiveDamageAnimation");
+    document.querySelector("#user-pokemon img").classList.add("damageFlicker");
+
     turnCounter = 0;
     setTimeout(faintedUser, 4000);
     console.log("test");
-    document
-      .querySelector("#user-pokemon img")
-      .classList.remove("userAttackAnimation");
   } else {
     userPokemon[currentUserPokemon].oldHealth =
       userPokemon[currentUserPokemon].currentHealth;
@@ -597,24 +617,16 @@ let inflictComputerDamage = function () {
       i--
     ) {
       changeUserHealth(i);
-
-      turnCounter = 0;
-      setTimeout(resetMenu, 3000);
     }
+    document.querySelector("#user-pokemon img").classList.add("damageFlicker");
+    turnCounter = 0;
+    setTimeout(resetMenu, 3000);
   }
-  document
-    .querySelector("#cpu-pokemon img")
-    .classList.add("receiveDamageAnimation");
-  document
-    .querySelector("#user-pokemon img")
-    .classList.remove("userAttackAnimation");
 };
 
 let faintedUser = function () {
-  document
-    .querySelector("#user-pokemon img")
-    .classList.remove("receiveDamageAnimation");
   delete userPokemon[currentUserPokemon];
+
   if (userPokemon[0] === undefined && userPokemon[1] === undefined) {
     console.log("YOU LOSE");
   } else {
@@ -635,17 +647,8 @@ let critCalc = function () {
   }
 };
 
-let grassKnot = function () {
-  moveType = grass;
-  calcDamage(grassKnotPower);
-};
-
 let effectiveness1 = 1;
 let effectiveness2 = 1;
-
-let nightSlashPower = 300;
-let grassKnotPower = 200;
-let roarPower = 20;
 
 const userPokemonName = document.querySelector("#user-name");
 const cpuPokemonName = document.querySelector("#cpu-name");
@@ -736,6 +739,8 @@ let newUserPokemon = function () {
 };
 
 let pickNewPokemon = function () {
+  document.querySelector("#action-box div").style.marginTop = `0px`;
+  document.querySelector("#action-box div").style.flexBasis = `50%`;
   if (userPokemon[0] === undefined) {
     slot1.textContent = "Fainted";
   } else {
@@ -763,45 +768,39 @@ let cpuTurn = function () {
     cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
     currentCpuPokemon === 0
   ) {
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
     randomNum = Math.random() * 100;
     if (randomNum <= 25) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Psychic`;
       slot2.textContent = "";
       slot3.textContent = "";
       slot4.textContent = "";
-      calcDamage(nightSlash);
+      calcDamage(psychic);
       console.log("me");
     } else if (randomNum > 25 && randomNum <= 50) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leech Seed`;
       slot2.textContent = "";
       slot3.textContent = "";
       slot4.textContent = "";
-      calcDamage(nightSlash);
+      calcDamage(leechSeed);
       console.log("me");
     } else if (randomNum > 50 && randomNum <= 75) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Grass Knot`;
       slot2.textContent = "";
       slot3.textContent = "";
       slot4.textContent = "";
-      calcDamage(nightSlash);
+      calcDamage(grassKnot);
       console.log("me");
     } else if (randomNum > 75 && randomNum <= 100) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leer`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Glare`;
       slot2.textContent = "";
       slot3.textContent = "";
       slot4.textContent = "";
-      calcDamage(nightSlash);
+      calcDamage(glare);
     }
   } else if (
     cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
     currentCpuPokemon === 1
   ) {
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
     randomNum = Math.random() * 100;
     if (randomNum <= 25) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Dragon Claw`;
@@ -836,9 +835,6 @@ let cpuTurn = function () {
     cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
     currentCpuPokemon === 2
   ) {
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
     randomNum = Math.random() * 100;
     if (randomNum <= 25) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Meteor Strike`;
@@ -869,9 +865,6 @@ let cpuTurn = function () {
     cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
     currentCpuPokemon === 3
   ) {
-    document
-      .querySelector("#cpu-pokemon img")
-      .classList.remove("receiveDamageAnimation");
     randomNum = Math.random() * 100;
     if (randomNum <= 25) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Ice Rush`;
@@ -907,13 +900,57 @@ let cpuTurn = function () {
 };
 
 let resetMenu = function () {
-  document
-    .querySelector("#user-pokemon img")
-    .classList.remove("receiveDamageAnimation");
+  document.querySelector("#action-box div").style.flexBasis = `50%`;
+  document.querySelector("#action-box div").style.marginTop = `0px`;
   slot1.textContent = "Fight";
   slot2.textContent = "Pokemon";
   slot3.textContent = "Bag";
   slot4.textContent = "Run";
   mainTree = 0;
   turnCounter = 0;
+  console.log("test");
+  document
+    .querySelector("#user-pokemon img")
+    .classList.remove("userAttackAnimation");
+  document.querySelector("#user-pokemon img").classList.remove("damageFlicker");
+  document.querySelector("#cpu-pokemon img").classList.remove("damageFlicker");
+};
+
+let title = document.querySelector("#title");
+let description = document.querySelector("#description");
+
+let mouseOver = function () {
+  if (slot1.textContent === "Night Slash") {
+    title.textContent = "Night Slash";
+    description.textContent =
+      "The user slashes the foe the instant an opportunity arises. It has a high critical-hit ratio.";
+    console.log("test");
+  }
+};
+
+let mouseOver2 = function () {
+  if (slot2.textContent === "Roar") {
+    title.textContent = "Roar";
+    description.textContent =
+      "The target is scared off and a different Pokémon is dragged out. In the wild, this ends a battle against a single Pokémon.";
+  }
+};
+
+let mouseOver3 = function () {
+  if (slot3.textContent === "Quick Attack") {
+    title.textContent = "Quick Attack";
+    description.textContent = "uwu";
+  }
+};
+
+let mouseOver4 = function () {
+  if (slot4.textContent === "Fairy Wind") {
+    title.textContent = "Fairy Wind";
+    description.textContent = "asdfsef";
+  }
+};
+
+let mouseLeave = function () {
+  title.textContent = `What will ${userPokemon[currentUserPokemon].name} do?`;
+  description.textContent = "";
 };

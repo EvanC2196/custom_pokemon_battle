@@ -17,7 +17,7 @@ body {
 }
 
 #action-box {
-  border: 3px solid black;
+  border-top: 3px solid black;
   height: 125px;
   width: 594px;
   position: absolute;
@@ -26,9 +26,51 @@ body {
   display: flex;
   flex-wrap: wrap;
   font-size: 40px;
-  align-items: center;
-  justify-content: space-around;
   padding: 10px;
+}
+
+#action-box div {
+  flex-basis: 50%;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.description-box {
+  width: 300px;
+  height: 325px;
+  border: 3px solid black;
+  border-bottom: 2px solid black;
+  position: absolute;
+  right: -300px;
+  top: -3px;
+  background-color: white;
+  font-size: 30px;
+  padding: 20px;
+}
+
+#title {
+  text-align: center;
+}
+
+#description {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-box {
+  width: 300px;
+  height: 125px;
+  border-right: 3px solid black;
+  border-bottom: 2px solid black;
+  border-left: 3px solid black;
+  border-top: 1px solid black;
+  position: absolute;
+  right: -300px;
+  top: 322px;
+  background-color: white;
+  text-align: center;
+  padding: 30px;
+  font-size: 50px;
 }
 
 .user-stats {
@@ -62,7 +104,7 @@ body {
 #currentHealthNum {
   position: absolute;
   left: 210px;
-  top: 22px;
+  top: 36px;
 }
 
 #user-pokemon img {
@@ -71,6 +113,11 @@ body {
   left: 20px;
   height: 200px;
   width: 200px;
+}
+
+#user-name {
+  font-size: 25px;
+  margin-bottom: 5px;
 }
 
 .cpu-stats {
@@ -87,6 +134,8 @@ body {
 #cpu-name {
   top: 25px;
   right: 275px;
+  font-size: 25px;
+  margin-bottom: 5px;
 }
 
 #cpu-max {
@@ -116,21 +165,6 @@ body {
   right: 50px;
   height: 150px;
   width: 150px;
-}
-
-.receiveDamageAnimation {
-  animation: receiveDamage;
-  animation-duration: 0.5s;
-  animation-iteration-count: 2;
-}
-
-@keyframes receiveDamage {
-  from {
-    margin-right: 10px;
-  }
-  to {
-    margin-left: 10px;
-  }
 }
 
 .activatHealthAnimation {
@@ -177,6 +211,18 @@ body {
   100% {
     margin-top: 100px;
     opacity: 0;
+  }
+}
+
+.damageFlicker {
+  animation: damageFlicker;
+  animation-duration: 0.1s;
+  animation-iteration-count: 3;
+}
+
+@keyframes damageFlicker {
+  100% {
+    opacity: 10%;
   }
 }
 

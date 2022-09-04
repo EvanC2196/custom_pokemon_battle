@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="game">
+    <audio autoplay>
+      <!--<source src="/Sound/128-battle (vs gym leader).mp3" />-->
+    </audio>
     <!-- User-->
     <div id="user-pokemon">
       <img
@@ -37,23 +41,34 @@
 
     <div id="action-box">
       <div id="slot1container">
-        <p class="text" id="slot1">Fight</p>
+        <p class="text" id="slot1" onmouseover="mouseOver()"" onmouseleave="mouseLeave()">Fight</p>
         <p id="menu-health"></p>
       </div>
       <div id="slot2container">
-        <p class="text" id="slot2">Pokemon</p>
+        <p class="text" id="slot2" onmouseover="mouseOver2()"" onmouseleave="mouseLeave()">Pokemon</p>
         <p id="menu-health"></p>
       </div>
       <div id="slot3container">
-        <p class="text" id="slot3">Bag</p>
+        <p class="text" id="slot3" onmouseover="mouseOver3()"" onmouseleave="mouseLeave()">Bag</p>
         <p id="menu-health"></p>
       </div>
       <div id="slot4container">
-        <p class="text" id="slot4">Run</p>
+        <p class="text" id="slot4" onmouseover="mouseOver4()"" onmouseleave="mouseLeave()">Run</p>
         <p id="menu-health"></p>
       </div>
     </div>
 
+    <div class="description-box">
+      <p id="title">Good Luck!</p>
+      <p id="description">
+        This game is not balanced whatsoever. Sorry in advance.
+      </p>
+    </div>
+
+    <div class="back-box">
+      <p>Cancel</p>
+    </div>
+  </div>
     <script src="script.js"></script>
   </body>
 </html>
