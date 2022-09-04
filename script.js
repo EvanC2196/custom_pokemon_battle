@@ -3,6 +3,11 @@ const slot2 = document.querySelector("#slot2");
 const slot3 = document.querySelector("#slot3");
 const slot4 = document.querySelector("#slot4");
 
+let currentCpuPokemon = 0;
+let currentUserPokemon = 0;
+let mainTree = 0;
+let damage = 0;
+
 let moveType = "";
 
 const dark = "dark";
@@ -10,10 +15,31 @@ let fairy = "fairy";
 let psychic = "psychic";
 let grass = "grass";
 
-let nightSlash = 300;
+let nightSlash = 70;
 let roar = 20;
 let quickAttack = 40;
-let fairyWind = 100;
+let fairyWind = 40;
+let steelSound = 20;
+let harden = 20;
+let metalClaw = 50;
+let woodHammer = 120;
+let closeCombat = 120;
+let bugBite = 60;
+let stringShot = 20;
+let taunt = 20;
+let flamethrower = 90;
+let shadowBall = 80;
+let nastyPlot = 20;
+let recover = 20;
+let dragonClaw = 80;
+let dragonTail = 60;
+let meteorStrike = 150;
+let wingAttack = 60;
+let earthquake = 100;
+let iceRush = 80;
+let blizzard = 110;
+let surf = 90;
+let aquaVeil = 20;
 
 let marcyStats = {
   name: "Marcy",
@@ -40,34 +66,76 @@ let brisketStats = {
   name: "Brisket",
   type1: "steel",
   type2: grass,
-  health: 500,
-  currentHealth: 500,
-  oldHealth: 500,
+  health: 375,
+  currentHealth: 375,
+  oldHealth: 375,
   percentWidth: 1,
-  attack: 20,
-  defense: 400,
-
+  attack: 50,
+  defense: 200,
+  speed: 24,
   move1: "Steel Sound",
-  move2: "Extreme Speed",
+  move2: "harden",
   move3: "Metal Claw",
-  move4: "Vine Whip",
+  move4: "woodHammer",
+  move1Power: steelSound,
+  move2Power: harden,
+  move3Power: metalClaw,
+  move4Power: woodHammer,
+};
+
+let fredStats = {
+  name: "Fred",
+  type1: "dragon",
+  type2: dark,
+  health: 225,
+  currentHealth: 225,
+  oldHealth: 225,
+  percentWidth: 1,
+  attack: 125,
+  defense: 75,
+  speed: 125,
+  move1: "Close Combat",
+  move2: "Bug Bite",
+  move3: "String Shot",
+  move4: "Taunt",
+  move1Power: closeCombat,
+  move2Power: bugBite,
+  move3Power: stringShot,
+  move4Power: taunt,
+};
+
+let wormStats = {
+  name: "Worm",
+  type1: "dragon",
+  type2: dark,
+  health: 525,
+  currentHealth: 525,
+  oldHealth: 525,
+  percentWidth: 1,
+  attack: 75,
+  defense: 50,
+  speed: 100,
+  move1: "Flamethrower",
+  move2: "Shadow Ball",
+  move3: "Nasty Plot",
+  move4: "Recover",
+  move1Power: flamethrower,
+  move2Power: shadowBall,
+  move3Power: nastyPlot,
+  move4Power: recover,
 };
 
 let guinliStats = {
   name: "Guinli",
   type1: psychic,
   type2: grass,
-  health: 50,
-  currentHealth: 50,
-  oldHealth: 50,
+  health: 150,
+  currentHealth: 150,
+  oldHealth: 150,
   percentWidth: 1,
-  attack: 50,
+  attack: 176,
   defense: 50,
   speed: 124,
-  move1: "test1",
-  move2: "test2",
-  move3: "test2",
-  move4: "test4",
   move1Power: nightSlash,
   move2Power: roar,
   move3Power: quickAttack,
@@ -78,64 +146,59 @@ let astroStats = {
   name: "Astro",
   type1: "dragon",
   type2: dark,
-  health: 500,
-  attack: 134,
-  defense: 95,
-  currentHealth: 500,
-  oldHealth: 500,
+  health: 300,
+  currentHealth: 300,
+  oldHealth: 300,
   percentWidth: 1,
-  move1: "test1",
-  move2: "test2",
-  move3: "test2",
-  move4: "test4",
-  move1Power: nightSlash,
+  attack: 135,
+  defense: 135,
+  speed: 30,
+  move1Power: dragonClaw,
   move2Power: roar,
-  move3Power: quickAttack,
-  move4Power: fairyWind,
+  move3Power: nightSlash,
+  move4Power: dragonTail,
 };
 
-let fredStats = {
-  name: "Fred",
+let birdStats = {
+  name: "Bird",
   type1: "dragon",
   type2: dark,
-  health: 500,
-  attack: 134,
-  defense: 95,
-  currentHealth: 500,
-  oldHealth: 500,
+  health: 375,
+  currentHealth: 375,
+  oldHealth: 375,
   percentWidth: 1,
-  move1: "test1",
-  move2: "test2",
-  move3: "test2",
-  move4: "test4",
-  move1Power: nightSlash,
-  move2Power: roar,
-  move3Power: quickAttack,
-  move4Power: fairyWind,
+  attack: 125,
+  defense: 125,
+  speed: 25,
+  move1Power: meteorStrike,
+  move2Power: wingAttack,
+  move3Power: earthquake,
+  move4Power: harden,
 };
 
-let wormStats = {
-  name: "Worm",
+let bongoStats = {
+  name: "Bongo",
   type1: "dragon",
   type2: dark,
-  health: 500,
-  attack: 134,
-  defense: 95,
-  currentHealth: 500,
-  oldHealth: 500,
+  health: 150,
+  currentHealth: 150,
+  oldHealth: 150,
   percentWidth: 1,
-  move1: "test1",
-  move2: "test2",
-  move3: "test2",
-  move4: "test4",
-  move1Power: nightSlash,
-  move2Power: roar,
-  move3Power: quickAttack,
-  move4Power: fairyWind,
+  attack: 50,
+  defense: 125,
+  speed: 175,
+  move1Power: iceRush,
+  move2Power: blizzard,
+  move3Power: surf,
+  move4Power: aquaVeil,
 };
 
 let userPokemon = [marcyStats, brisketStats, fredStats, wormStats];
-let cpuPokemon = [guinliStats, astroStats];
+let cpuPokemon = [guinliStats, astroStats, birdStats, bongoStats];
+
+currentHealthNum = document.querySelector("#currentHealthNum");
+
+currentHealthNum.textContent = `${userPokemon[currentUserPokemon].currentHealth}/${userPokemon[currentUserPokemon].health}`;
 
 slot1.addEventListener("click", function () {
   if (mainTree === 0) {
@@ -193,7 +256,7 @@ slot3.addEventListener("click", function () {
     calcDamage(userPokemon[currentUserPokemon].move3Power);
   } else if (mainTree === 2) {
     console.log("send out Brisket");
-    currentUserPokemon = 1;
+    currentUserPokemon = 2;
     setTimeout(newUserPokemon, 1000);
     console.log("CPU turn");
     mainTree = 0;
@@ -215,7 +278,7 @@ slot4.addEventListener("click", function () {
     calcDamage(userPokemon[currentUserPokemon].move4Power);
   } else if (mainTree === 2) {
     console.log("send out Brisket");
-    currentUserPokemon = 1;
+    currentUserPokemon = 3;
     setTimeout(newUserPokemon, 1000);
     console.log("CPU turn");
     mainTree = 0;
@@ -246,7 +309,6 @@ let calcDamage = function (power) {
       .classList.remove("receiveDamageAnimation");
 
     setTimeout(inflictDamage, 750);
-    console.log("me");
   } else if (turnCounter === 1) {
     damage =
       ((((2 * 50 * critical) / 5 + 2) *
@@ -284,9 +346,13 @@ let changeHealth = function (i) {
   setTimeout(function () {
     cpuPokemon[currentCpuPokemon].percentWidth =
       i / cpuPokemon[currentCpuPokemon].health;
+
+    if (cpuPokemon[currentCpuPokemon].percentWidth < 0.25) {
+      document.querySelector("#cpu-actual").style.backgroundColor = "red";
+    }
+
     document.querySelector("#cpu-actual").style.width =
       200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
-    console.log(i);
   }, (cpuPokemon[currentCpuPokemon].oldHealth - i) * 10);
 };
 
@@ -302,15 +368,9 @@ let inflictDamage = function () {
       i--
     ) {
       changeHealth(i);
-
-      console.log(i);
-      console.log(cpuPokemon[currentCpuPokemon].currentHealth);
-      console.log(cpuPokemon[currentCpuPokemon].health);
-      console.log(cpuPokemon[currentCpuPokemon].oldHealth);
-      console.log(cpuPokemon[currentCpuPokemon].percentWidth);
     }
 
-    setTimeout(faintedCPU, 3000);
+    setTimeout(faintedCPU, 2000);
     turnCounter = 1;
   } else {
     cpuPokemon[currentCpuPokemon].oldHealth =
@@ -324,10 +384,6 @@ let inflictDamage = function () {
       i--
     ) {
       changeHealth(i);
-
-      console.log(i);
-      console.log(cpuPokemon[currentCpuPokemon].oldHealth);
-      console.log(cpuPokemon[currentCpuPokemon].percentWidth);
     }
 
     turnCounter = 1;
@@ -342,8 +398,14 @@ let faintedCPU = function () {
   document
     .querySelector("#cpu-pokemon img")
     .classList.remove("receiveDamageAnimation");
+  console.log(currentCpuPokemon);
   delete cpuPokemon[currentCpuPokemon];
-  if (cpuPokemon[0] === undefined && cpuPokemon[1] === undefined) {
+  if (
+    cpuPokemon[0] === undefined &&
+    cpuPokemon[1] === undefined &&
+    cpuPokemon[2] === undefined &&
+    cpuPokemon[3] === undefined
+  ) {
     console.log("YOU WIN");
   } else {
     console.log(cpuPokemon);
@@ -353,23 +415,121 @@ let faintedCPU = function () {
 
 let checkUndefined = function () {
   currentCpuPokemon = Math.floor(Math.random() * 4);
+  console.log(currentCpuPokemon);
   if (cpuPokemon[currentCpuPokemon] === undefined) {
     checkUndefined();
+    console.log("run again");
   } else {
     newCpuPokemon();
+    console.log("me");
   }
 };
 
 let newCpuPokemon = function () {
   switch (currentCpuPokemon) {
     case 0:
-      cpuPokemonName.textContent = "Guinli";
+      setTimeout(sendOutCpuText, 3000);
+      setTimeout(sendOutCpu, 4000);
+      if (cpuPokemon[currentCpuPokemon].percentWidth < 0.25) {
+        document.querySelector("#cpu-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#cpu-actual").style.backgroundColor =
+          "lightgreen";
+      }
       break;
     case 1:
-      setTimeout(sendOutAstroText, 3000);
-      setTimeout(sendOutAstro, 4000);
+      setTimeout(sendOutCpuText, 3000);
+      setTimeout(sendOutCpu, 4000);
+      if (cpuPokemon[currentCpuPokemon].percentWidth < 0.25) {
+        document.querySelector("#cpu-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#cpu-actual").style.backgroundColor =
+          "lightgreen";
+      }
 
       break;
+    case 2:
+      setTimeout(sendOutCpuText, 3000);
+      setTimeout(sendOutCpu, 4000);
+      if (cpuPokemon[currentCpuPokemon].percentWidth < 0.25) {
+        document.querySelector("#cpu-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#cpu-actual").style.backgroundColor =
+          "lightgreen";
+      }
+
+      break;
+    case 3:
+      setTimeout(sendOutCpuText, 3000);
+      setTimeout(sendOutCpu, 4000);
+      if (cpuPokemon[currentCpuPokemon].percentWidth < 0.25) {
+        document.querySelector("#cpu-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#cpu-actual").style.backgroundColor =
+          "lightgreen";
+      }
+
+      break;
+  }
+};
+
+let sendOutCpuText = function () {
+  slot1.textContent = `Chad sent out ${cpuPokemon[currentCpuPokemon].name}`;
+  slot2.textContent = "";
+  slot3.textContent = "";
+  slot4.textContent = "";
+  console.log(`current cpu is ${currentCpuPokemon}`);
+};
+
+let animationBugFix = function () {
+  document
+    .querySelector("#cpu-pokemon img")
+    .classList.remove("cpuFaintAnimation");
+};
+
+let sendOutCpu = function () {
+  if (currentCpuPokemon === 0) {
+    cpuPokemonName.textContent = cpuPokemon[currentCpuPokemon].name;
+    document.querySelector("#cpu-pokemon img").src =
+      "https://img.pokemondb.net/sprites/firered-leafgreen/normal/charizard.png";
+
+    document.querySelector("#cpu-actual").style.width =
+      200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+    setTimeout(animationBugFix, 100);
+    setTimeout(resetMenu, 2000);
+    turnCounter = 0;
+  } else if (currentCpuPokemon === 1) {
+    cpuPokemonName.textContent = cpuPokemon[currentCpuPokemon].name;
+    console.log("tis me");
+    document.querySelector("#cpu-pokemon img").src =
+      "https://img.pokemondb.net/sprites/firered-leafgreen/normal/golem.png";
+    console.log(`current cpu is ${currentCpuPokemon}`);
+    document.querySelector("#cpu-actual").style.width =
+      200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+    setTimeout(animationBugFix, 100);
+    setTimeout(resetMenu, 2000);
+    turnCounter = 0;
+  } else if (currentCpuPokemon === 2) {
+    cpuPokemonName.textContent = cpuPokemon[currentCpuPokemon].name;
+    document.querySelector("#cpu-pokemon img").src =
+      "https://img.pokemondb.net/sprites/emerald/normal/pelipper.png";
+
+    document.querySelector("#cpu-actual").style.width =
+      200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+    setTimeout(animationBugFix, 100);
+    setTimeout(resetMenu, 2000);
+    turnCounter = 0;
+  } else if (currentCpuPokemon === 3) {
+    cpuPokemonName.textContent = cpuPokemon[currentCpuPokemon].name;
+    document.querySelector("#cpu-pokemon img").src =
+      "https://img.pokemondb.net/sprites/black-white/anim/normal/lumineon.gif";
+    setTimeout(animationBugFix, 100);
+
+    document.querySelector("#cpu-actual").style.width =
+      200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
+
+    setTimeout(resetMenu, 2000);
+    turnCounter = 0;
   }
 };
 
@@ -377,10 +537,19 @@ let changeUserHealth = function (i) {
   setTimeout(function () {
     userPokemon[currentUserPokemon].percentWidth =
       i / userPokemon[currentUserPokemon].health;
+
+    if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+      document.querySelector("#user-actual").style.backgroundColor = "red";
+    }
+
     document.querySelector("#user-actual").style.width =
       200 * userPokemon[currentUserPokemon].percentWidth + "px";
-    console.log(i);
-    setTimeout(timeFill, 3000);
+
+    currentHealthNum.textContent = `${Math.floor(i)}/${
+      userPokemon[currentUserPokemon].health
+    }`;
+
+    setTimeout(timeFill, 1500);
   }, (userPokemon[currentUserPokemon].oldHealth - i) * 10);
 };
 
@@ -404,19 +573,14 @@ let inflictComputerDamage = function () {
       i--
     ) {
       changeUserHealth(i);
-
-      console.log(i);
-      console.log(cpuPokemon[currentCpuPokemon].currentHealth);
-      console.log(cpuPokemon[currentCpuPokemon].health);
-      console.log(cpuPokemon[currentCpuPokemon].oldHealth);
-      console.log(cpuPokemon[currentCpuPokemon].percentWidth);
+      currentHealthNum.textContent = `${userPokemon[currentUserPokemon].currentHealth}/${userPokemon[currentUserPokemon].health}`;
     }
 
     document
       .querySelector("#cpu-pokemon img")
       .classList.add("receiveDamageAnimation");
     turnCounter = 0;
-    setTimeout(faintedUser, 5000);
+    setTimeout(faintedUser, 4000);
     console.log("test");
     document
       .querySelector("#user-pokemon img")
@@ -434,9 +598,8 @@ let inflictComputerDamage = function () {
     ) {
       changeUserHealth(i);
 
-      console.log(i);
-      console.log(cpuPokemon[currentCpuPokemon].oldHealth);
-      console.log(cpuPokemon[currentCpuPokemon].percentWidth);
+      turnCounter = 0;
+      setTimeout(resetMenu, 3000);
     }
   }
   document
@@ -445,9 +608,6 @@ let inflictComputerDamage = function () {
   document
     .querySelector("#user-pokemon img")
     .classList.remove("userAttackAnimation");
-  turnCounter = 0;
-  setTimeout(resetMenu, 5000);
-  console.log("also a test");
 };
 
 let faintedUser = function () {
@@ -492,11 +652,6 @@ const cpuPokemonName = document.querySelector("#cpu-name");
 
 const cpuPokemonImage = document.querySelector("#cpu-pokemon img");
 
-let currentCpuPokemon = 0;
-let currentUserPokemon = 0;
-let mainTree = 0;
-let damage = 0;
-
 let stab = 1.5;
 
 let turnCounter = 0;
@@ -513,8 +668,19 @@ let newUserPokemon = function () {
   switch (currentUserPokemon) {
     case 0:
       userPokemonName.textContent = "Marcy";
+      document.querySelector("#user-pokemon img").src =
+        "https://img.pokemondb.net/sprites/firered-leafgreen/back-normal/bulbasaur.png";
       document.querySelector("#user-actual").style.width =
         200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
       break;
     case 1:
       userPokemonName.textContent = "Brisket";
@@ -522,6 +688,47 @@ let newUserPokemon = function () {
         "https://img.pokemondb.net/sprites/emerald/back-normal/aggron.png";
       document.querySelector("#user-actual").style.width =
         200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
+      break;
+    case 2:
+      userPokemonName.textContent = "Fred";
+      document.querySelector("#user-pokemon img").src =
+        "https://img.pokemondb.net/sprites/emerald/back-normal/ariados.png";
+      document.querySelector("#user-actual").style.width =
+        200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
+      break;
+    case 3:
+      userPokemonName.textContent = "Worm";
+      document.querySelector("#user-pokemon img").src =
+        "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/giratina-origin.png";
+      document.querySelector("#user-actual").style.width =
+        200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
       break;
   }
   turnCounter = 1;
@@ -529,31 +736,26 @@ let newUserPokemon = function () {
 };
 
 let pickNewPokemon = function () {
-  slot1.textContent = "Marcy";
-  slot2.textContent = userPokemon[1].name;
-  slot3.textContent = userPokemon[2].name;
-  slot4.textContent = userPokemon[3].name;
-};
-
-let sendOutAstroText = function () {
-  slot1.textContent = "Chad sent out Astro";
-  slot2.textContent = "";
-  slot3.textContent = "";
-  slot4.textContent = "";
-};
-
-let sendOutAstro = function () {
-  cpuPokemonName.textContent = "Astro";
-  document.querySelector("#cpu-pokemon img").src =
-    "https://img.pokemondb.net/sprites/firered-leafgreen/normal/golem.png";
-
-  document.querySelector("#cpu-actual").style.width =
-    200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
-  document
-    .querySelector("#cpu-pokemon img")
-    .classList.remove("cpuFaintAnimation");
-  setTimeout(resetMenu, 2000);
-  turnCounter = 0;
+  if (userPokemon[0] === undefined) {
+    slot1.textContent = "Fainted";
+  } else {
+    slot1.textContent = userPokemon[0].name;
+  }
+  if (userPokemon[1] === undefined) {
+    slot2.textContent = "Fainted";
+  } else {
+    slot2.textContent = userPokemon[1].name;
+  }
+  if (userPokemon[2] === undefined) {
+    slot3.textContent = "Fainted";
+  } else {
+    slot3.textContent = userPokemon[2].name;
+  }
+  if (userPokemon[3] === undefined) {
+    slot4.textContent = "Fainted";
+  } else {
+    slot4.textContent = userPokemon[3].name;
+  }
 };
 
 let cpuTurn = function () {
@@ -568,23 +770,30 @@ let cpuTurn = function () {
     if (randomNum <= 25) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Psychic`;
       slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
       calcDamage(nightSlash);
       console.log("me");
     } else if (randomNum > 25 && randomNum <= 50) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leech Seed`;
       slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
       calcDamage(nightSlash);
       console.log("me");
     } else if (randomNum > 50 && randomNum <= 75) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Grass Knot`;
       slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
       calcDamage(nightSlash);
       console.log("me");
     } else if (randomNum > 75 && randomNum <= 100) {
       slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Leer`;
       slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
       calcDamage(nightSlash);
-      console.log("me");
     }
   } else if (
     cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
@@ -595,25 +804,99 @@ let cpuTurn = function () {
       .classList.remove("receiveDamageAnimation");
     randomNum = Math.random() * 100;
     if (randomNum <= 25) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Draco Meteor`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Dragon Claw`;
       slot2.textContent = "";
-      setTimeout(calcDamage(nightSlash), 1000);
+      slot3.textContent = "";
+      slot4.textContent = "";
+      setTimeout(calcDamage(dragonClaw), 1000);
       console.log("test");
     } else if (randomNum > 25 && randomNum <= 50) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Shadow Claw`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Roar`;
       slot2.textContent = "";
-      setTimeout(calcDamage(nightSlash), 1000);
+      slot3.textContent = "";
+      slot4.textContent = "";
+      setTimeout(calcDamage(roar), 1000);
       console.log("test");
     } else if (randomNum > 50 && randomNum <= 75) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Crunch`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Night Slash`;
       slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
       setTimeout(calcDamage(nightSlash), 1000);
       console.log("test");
     } else if (randomNum > 75 && randomNum <= 100) {
-      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Dragon Claw`;
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Dragon Tail`;
       slot2.textContent = "";
-      setTimeout(calcDamage(nightSlash), 1000);
+      slot3.textContent = "";
+      slot4.textContent = "";
+      setTimeout(calcDamage(dragonTail), 1000);
       console.log("test");
+    }
+  } else if (
+    cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
+    currentCpuPokemon === 2
+  ) {
+    document
+      .querySelector("#cpu-pokemon img")
+      .classList.remove("receiveDamageAnimation");
+    randomNum = Math.random() * 100;
+    if (randomNum <= 25) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Meteor Strike`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(meteorStrike);
+    } else if (randomNum > 25 && randomNum <= 50) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Wing Attack`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(wingAttack);
+    } else if (randomNum > 50 && randomNum <= 75) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Earthquake`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(earthquake);
+    } else if (randomNum > 75 && randomNum <= 100) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Harden`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(harden);
+    }
+  } else if (
+    cpuPokemon[currentCpuPokemon].currentHealth > 0 &&
+    currentCpuPokemon === 3
+  ) {
+    document
+      .querySelector("#cpu-pokemon img")
+      .classList.remove("receiveDamageAnimation");
+    randomNum = Math.random() * 100;
+    if (randomNum <= 25) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Ice Rush`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(iceRush);
+    } else if (randomNum > 25 && randomNum <= 50) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Blizzard`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(blizzard);
+    } else if (randomNum > 50 && randomNum <= 75) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Surf`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(surf);
+    } else if (randomNum > 75 && randomNum <= 100) {
+      slot1.textContent = `${cpuPokemon[currentCpuPokemon].name} used Aqua Veil`;
+      slot2.textContent = "";
+      slot3.textContent = "";
+      slot4.textContent = "";
+      calcDamage(aquaVeil);
     }
   } else {
     console.log(
