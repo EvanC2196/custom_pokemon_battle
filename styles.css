@@ -4,12 +4,67 @@
   box-sizing: border-box;
 }
 
-body {
+#start-screen {
+  width: 900px;
+  height: 575px;
+  border: 3px solid black;
+}
+
+#prompt {
+  text-align: center;
+  font-size: 50px;
+}
+
+input {
+  font-size: 15px;
+}
+
+#rival {
+  margin-bottom: -25px;
+}
+
+#order {
+  margin-top: 30px;
+}
+
+.Pokemon {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  font-size: 10px;
+  flex-wrap: wrap;
+  font-size: 50px;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.Pokemon p {
+  border: 3px solid black;
+  flex-basis: 50%;
+  text-align: center;
+  padding: 15px;
+}
+
+#game {
   width: 600px;
   height: 450px;
   border: 3px solid black;
   position: relative;
   background-color: lightgray;
+  display: none;
+}
+
+#footer {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  font-size: 40px;
+}
+
+#footer p {
+  border: 1px solid black;
+  padding: 10px;
 }
 
 .text {
@@ -113,6 +168,7 @@ body {
   left: 20px;
   height: 200px;
   width: 200px;
+  z-index: 0;
 }
 
 #user-name {
@@ -165,6 +221,7 @@ body {
   right: 50px;
   height: 150px;
   width: 150px;
+  z-index: 1;
 }
 
 .activatHealthAnimation {
@@ -250,5 +307,5 @@ body {
   position: absolute;
   right: 35px;
   top: 125px;
-  z-index: -1;
+  z-index: 0;
 }

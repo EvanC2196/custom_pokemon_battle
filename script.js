@@ -1,3 +1,108 @@
+let counter = 0;
+
+let marcy = document.querySelector("#Marcy");
+let brisket = document.querySelector("#Brisket");
+let fred = document.querySelector("#Fred");
+let worm = document.querySelector("#Worm");
+
+marcy.addEventListener("click", function () {
+  if (counter === 0) {
+    marcy.textContent = "Marcy 1";
+    document.querySelector("#Marcy").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 1) {
+    marcy.textContent = "Marcy 2";
+    document.querySelector("#Marcy").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 2) {
+    marcy.textContent = "Marcy 3";
+    document.querySelector("#Marcy").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 3) {
+    marcy.textContent = "Marcy 4";
+    document.querySelector("#Marcy").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+    greenLight();
+  }
+});
+
+brisket.addEventListener("click", function () {
+  if (counter === 0) {
+    brisket.textContent = "Brisket 1";
+    document.querySelector("#Brisket").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 1) {
+    brisket.textContent = "Brisket 2";
+    document.querySelector("#Brisket").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 2) {
+    brisket.textContent = "Brisket 3";
+    document.querySelector("#Brisket").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 3) {
+    brisket.textContent = "Brisket 4";
+    document.querySelector("#Brisket").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+    greenLight();
+  }
+});
+
+fred.addEventListener("click", function () {
+  if (counter === 0) {
+    fred.textContent = "Fred 1";
+    document.querySelector("#Fred").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 1) {
+    fred.textContent = "Fred 2";
+    document.querySelector("#Fred").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 2) {
+    fred.textContent = "Fred 3";
+    document.querySelector("#Fred").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 3) {
+    fred.textContent = "Fred 4";
+    document.querySelector("#Fred").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+    greenLight();
+  }
+});
+
+worm.addEventListener("click", function () {
+  if (counter === 0) {
+    worm.textContent = "Worm 1";
+    document.querySelector("#Worm").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 1) {
+    worm.textContent = "Worm 2";
+    document.querySelector("#Worm").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 2) {
+    worm.textContent = "Worm 3";
+    document.querySelector("#Worm").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+  } else if (counter === 3) {
+    worm.textContent = "Worm 4";
+    document.querySelector("#Worm").style.backgroundColor = "palegreen";
+    counter = counter + 1;
+    greenLight();
+  }
+});
+
+let greenLight = function () {
+  document.querySelector("#start-button").style.backgroundColor = "lightgreen";
+  document.querySelector("#reset").style.backgroundColor = "#fd5c63";
+};
+
+let mainSoundHolder = "";
+
+let showGame = function () {
+  document.querySelector("#game").style.display = "block";
+  document.querySelector("#start-screen").style.display = "none";
+  mainSoundHolder = new Audio("143-last battle (vs rival).mp3");
+  mainSoundHolder.play();
+};
+
 const slot1 = document.querySelector("#slot1");
 const slot2 = document.querySelector("#slot2");
 const slot3 = document.querySelector("#slot3");
