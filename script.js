@@ -1,3 +1,8 @@
+let userPokemon = [];
+
+let currentCpuPokemon = 0;
+let currentUserPokemon = 0;
+
 let counter = 0;
 
 let marcy = document.querySelector("#Marcy");
@@ -10,19 +15,23 @@ marcy.addEventListener("click", function () {
     marcy.textContent = "Marcy 1";
     document.querySelector("#Marcy").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(marcyStats);
   } else if (counter === 1) {
     marcy.textContent = "Marcy 2";
     document.querySelector("#Marcy").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(marcyStats);
   } else if (counter === 2) {
     marcy.textContent = "Marcy 3";
     document.querySelector("#Marcy").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(marcyStats);
   } else if (counter === 3) {
     marcy.textContent = "Marcy 4";
     document.querySelector("#Marcy").style.backgroundColor = "palegreen";
     counter = counter + 1;
     greenLight();
+    userPokemon.push(marcyStats);
   }
 });
 
@@ -31,19 +40,23 @@ brisket.addEventListener("click", function () {
     brisket.textContent = "Brisket 1";
     document.querySelector("#Brisket").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(brisketStats);
   } else if (counter === 1) {
     brisket.textContent = "Brisket 2";
     document.querySelector("#Brisket").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(brisketStats);
   } else if (counter === 2) {
     brisket.textContent = "Brisket 3";
     document.querySelector("#Brisket").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(brisketStats);
   } else if (counter === 3) {
     brisket.textContent = "Brisket 4";
     document.querySelector("#Brisket").style.backgroundColor = "palegreen";
     counter = counter + 1;
     greenLight();
+    userPokemon.push(brisketStats);
   }
 });
 
@@ -52,19 +65,23 @@ fred.addEventListener("click", function () {
     fred.textContent = "Fred 1";
     document.querySelector("#Fred").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(fredStats);
   } else if (counter === 1) {
     fred.textContent = "Fred 2";
     document.querySelector("#Fred").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(fredStats);
   } else if (counter === 2) {
     fred.textContent = "Fred 3";
     document.querySelector("#Fred").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(fredStats);
   } else if (counter === 3) {
     fred.textContent = "Fred 4";
     document.querySelector("#Fred").style.backgroundColor = "palegreen";
     counter = counter + 1;
     greenLight();
+    userPokemon.push(fredStats);
   }
 });
 
@@ -73,33 +90,118 @@ worm.addEventListener("click", function () {
     worm.textContent = "Worm 1";
     document.querySelector("#Worm").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(wormStats);
   } else if (counter === 1) {
     worm.textContent = "Worm 2";
     document.querySelector("#Worm").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(wormStats);
   } else if (counter === 2) {
     worm.textContent = "Worm 3";
     document.querySelector("#Worm").style.backgroundColor = "palegreen";
     counter = counter + 1;
+    userPokemon.push(wormStats);
   } else if (counter === 3) {
     worm.textContent = "Worm 4";
     document.querySelector("#Worm").style.backgroundColor = "palegreen";
     counter = counter + 1;
     greenLight();
+    userPokemon.push(wormStats);
   }
 });
+
+console.log(userPokemon);
 
 let greenLight = function () {
   document.querySelector("#start-button").style.backgroundColor = "lightgreen";
   document.querySelector("#reset").style.backgroundColor = "#fd5c63";
 };
 
+let newUserPokemon = function () {
+  switch (currentUserPokemon) {
+    case 0:
+      userPokemonName.textContent = userPokemon[currentUserPokemon].name;
+      document.querySelector("#user-pokemon img").src =
+        userPokemon[currentUserPokemon].sprite;
+      document.querySelector("#user-actual").style.width =
+        200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
+      break;
+    case 1:
+      userPokemonName.textContent = userPokemon[currentUserPokemon].name;
+      document.querySelector("#user-pokemon img").src =
+        userPokemon[currentUserPokemon].sprite;
+      document.querySelector("#user-actual").style.width =
+        200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
+      break;
+    case 2:
+      userPokemonName.textContent = userPokemon[currentUserPokemon].name;
+      document.querySelector("#user-pokemon img").src =
+        userPokemon[currentUserPokemon].sprite;
+
+      document.querySelector("#user-actual").style.width =
+        200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
+      break;
+    case 3:
+      userPokemonName.textContent = userPokemon[currentUserPokemon].name;
+      document.querySelector("#user-pokemon img").src =
+        userPokemon[currentUserPokemon].sprite;
+
+      document.querySelector("#user-actual").style.width =
+        200 * userPokemon[currentUserPokemon].percentWidth + "px";
+      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
+        document.querySelector("#user-actual").style.backgroundColor = "red";
+      } else {
+        document.querySelector("#user-actual").style.backgroundColor =
+          "lightgreen";
+      }
+      currentHealthNum.textContent = `${Math.floor(
+        userPokemon[currentUserPokemon].currentHealth
+      )}/${userPokemon[currentUserPokemon].health}`;
+      break;
+  }
+  if (turnCounter === 7) {
+    turnCounter = 1;
+    setTimeout(cpuTurn, 3000);
+    console.log("me");
+  }
+};
+
 let mainSoundHolder = "";
 
 let showGame = function () {
+  newUserPokemon();
+  console.log(userPokemon[1]);
+  console.log("hi");
   document.querySelector("#game").style.display = "block";
   document.querySelector("#start-screen").style.display = "none";
-  mainSoundHolder = new Audio("143-last battle (vs rival).mp3");
+  //mainSoundHolder = new Audio("143-last battle (vs rival).mp3");
   mainSoundHolder.play();
 };
 
@@ -108,17 +210,10 @@ const slot2 = document.querySelector("#slot2");
 const slot3 = document.querySelector("#slot3");
 const slot4 = document.querySelector("#slot4");
 
-let currentCpuPokemon = 0;
-let currentUserPokemon = 0;
 let mainTree = 0;
 let damage = 0;
 
 let moveType = "";
-
-const dark = "dark";
-let fairy = "fairy";
-
-let grass = "grass";
 
 let nightSlash = 70;
 let roar = 20;
@@ -152,8 +247,10 @@ let glare = 20;
 
 let marcyStats = {
   name: "Marcy",
-  type1: dark,
-  type2: fairy,
+  sprite:
+    "https://img.pokemondb.net/sprites/firered-leafgreen/back-normal/bulbasaur.png",
+  type1: "dark",
+  type2: "fairy",
   health: 225,
   currentHealth: 225,
   oldHealth: 225,
@@ -173,8 +270,9 @@ let marcyStats = {
 
 let brisketStats = {
   name: "Brisket",
+  sprite: "https://img.pokemondb.net/sprites/emerald/back-normal/aggron.png",
   type1: "steel",
-  type2: grass,
+  type2: "grass",
   health: 375,
   currentHealth: 375,
   oldHealth: 375,
@@ -194,8 +292,9 @@ let brisketStats = {
 
 let fredStats = {
   name: "Fred",
-  type1: "dragon",
-  type2: dark,
+  sprite: "https://img.pokemondb.net/sprites/emerald/back-normal/ariados.png",
+  type1: "bug",
+  type2: "fighting",
   health: 225,
   currentHealth: 225,
   oldHealth: 225,
@@ -215,8 +314,10 @@ let fredStats = {
 
 let wormStats = {
   name: "Worm",
+  sprite:
+    "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/giratina-origin.png",
   type1: "dragon",
-  type2: dark,
+  type2: "dark",
   health: 525,
   currentHealth: 525,
   oldHealth: 525,
@@ -236,8 +337,8 @@ let wormStats = {
 
 let guinliStats = {
   name: "Guinli",
-  type1: psychic,
-  type2: grass,
+  type1: "psychic",
+  type2: "grass",
   health: 150,
   currentHealth: 150,
   oldHealth: 150,
@@ -254,7 +355,7 @@ let guinliStats = {
 let astroStats = {
   name: "Astro",
   type1: "dragon",
-  type2: dark,
+  type2: "dark",
   health: 300,
   currentHealth: 300,
   oldHealth: 300,
@@ -271,7 +372,7 @@ let astroStats = {
 let birdStats = {
   name: "Bird",
   type1: "dragon",
-  type2: dark,
+  type2: "dark",
   health: 375,
   currentHealth: 375,
   oldHealth: 375,
@@ -287,8 +388,8 @@ let birdStats = {
 
 let bongoStats = {
   name: "Bongo",
-  type1: "dragon",
-  type2: dark,
+  type1: "water",
+  type2: "ice",
   health: 150,
   currentHealth: 150,
   oldHealth: 150,
@@ -302,12 +403,9 @@ let bongoStats = {
   move4Power: aquaVeil,
 };
 
-let userPokemon = [marcyStats, brisketStats, fredStats, wormStats];
 let cpuPokemon = [guinliStats, astroStats, birdStats, bongoStats];
 
-currentHealthNum = document.querySelector("#currentHealthNum");
-
-currentHealthNum.textContent = `${userPokemon[currentUserPokemon].currentHealth}/${userPokemon[currentUserPokemon].health}`;
+let currentHealthNum = document.querySelector("#currentHealthNum");
 
 slot1.addEventListener("click", function () {
   if (mainTree === 0) {
@@ -336,6 +434,7 @@ slot2.addEventListener("click", function () {
   if (mainTree === 0) {
     pickNewPokemon();
     mainTree = 2;
+    turnCounter = 7;
     console.log("test");
   } else if (mainTree === 1) {
     slot1.textContent = `${userPokemon[currentUserPokemon].name} used ${userPokemon[currentUserPokemon].move2}`;
@@ -398,6 +497,8 @@ slot4.addEventListener("click", function () {
 
 let soundHolder = "";
 
+let superEffectiveSound = new Audio("hit-super-effective.mp3");
+
 let sound = function (power) {
   switch (power) {
     case nightSlash:
@@ -418,7 +519,8 @@ let calcDamage = function (power) {
   document.querySelector("#action-box div").style.flexBasis = `100%`;
   document.querySelector("#action-box div").style.marginTop = `25px`;
   critCalc();
-  stabCalc();
+  stabCalc(power);
+  effectiveness1Calc(power);
   sound(power);
   console.log("another fucking test");
   if (turnCounter === 0) {
@@ -448,21 +550,53 @@ let calcDamage = function (power) {
       stab *
       effectiveness1 *
       effectiveness2;
+    console.log(`effectiveness1=${effectiveness1}`);
+    console.log(`stab= ${stab}`);
+    console.log(`crit = ${critical}`);
     console.log(damage);
 
     inflictComputerDamage();
   }
+  console.log(`effectiveness1=${effectiveness1}`);
+  console.log(`stab= ${stab}`);
+  console.log(`crit = ${critical}`);
+  console.log(damage);
 };
 
-let stabCalc = function () {
+let stabCalc = function (power) {
   if (
-    userPokemon[currentUserPokemon].type1 === moveType ||
-    userPokemon[currentUserPokemon].type1 === moveType
+    (power === nightSlash &&
+      userPokemon[currentUserPokemon].type1 === "dark") ||
+    userPokemon[currentUserPokemon].type2 === "dark"
   ) {
     stab = 1.5;
     console.log("stab");
   } else {
     stab = 1;
+  }
+};
+
+let effectiveness1Calc = function (power) {
+  if (
+    power === nightSlash &&
+    cpuPokemon[currentCpuPokemon].type1 === "psychic"
+  ) {
+    effectiveness1 = 2;
+    superEffectiveSound.play();
+  } else {
+    effectiveness1 = 1;
+  }
+};
+
+let effectiveness2Calc = function (power) {
+  if (
+    power === nightSlash &&
+    cpuPokemon[currentCpuPokemon].type2 === "psychic"
+  ) {
+    effectiveness2 = 2;
+    superEffectiveSound.play();
+  } else {
+    effectiveness2 = 1;
   }
 };
 
@@ -483,10 +617,13 @@ let changeHealth = function (i) {
 let inflictDamage = function () {
   title.textContent = "nicely done!";
   description.textContent = "";
+
   if (damage >= cpuPokemon[currentCpuPokemon].currentHealth) {
     cpuPokemon[currentCpuPokemon].oldHealth =
       cpuPokemon[currentCpuPokemon].currentHealth;
     cpuPokemon[currentCpuPokemon].currentHealth = 0;
+
+    console.log("what the fuck");
 
     for (
       let i = cpuPokemon[currentCpuPokemon].oldHealth;
@@ -496,7 +633,9 @@ let inflictDamage = function () {
       changeHealth(i);
     }
     document.querySelector("#cpu-pokemon img").classList.add("damageFlicker");
-    setTimeout(faintedCPU, 2000);
+
+    console.log(currentCpuPokemon);
+    setTimeout(faintedCPU, 4000);
     turnCounter = 1;
   } else {
     title.textContent = "oof, would not have been my first choice";
@@ -523,9 +662,8 @@ let inflictDamage = function () {
 };
 
 let faintedCPU = function () {
+  document.querySelector("#cpu-pokemon img").classList.remove("damageFlicker");
   document.querySelector("#cpu-pokemon img").classList.add("cpuFaintAnimation");
-
-  console.log(currentCpuPokemon);
   delete cpuPokemon[currentCpuPokemon];
   if (
     cpuPokemon[0] === undefined &&
@@ -609,9 +747,7 @@ let sendOutCpuText = function () {
 };
 
 let animationBugFix = function () {
-  document
-    .querySelector("#cpu-pokemon img")
-    .classList.remove("cpuFaintAnimation");
+  document.querySelector("#cpu-pokemon img").classList.add("damageFlicker");
 };
 
 let sendOutCpu = function () {
@@ -622,7 +758,7 @@ let sendOutCpu = function () {
 
     document.querySelector("#cpu-actual").style.width =
       200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
-    setTimeout(animationBugFix, 100);
+
     setTimeout(resetMenu, 2000);
     turnCounter = 0;
   } else if (currentCpuPokemon === 1) {
@@ -633,7 +769,7 @@ let sendOutCpu = function () {
     console.log(`current cpu is ${currentCpuPokemon}`);
     document.querySelector("#cpu-actual").style.width =
       200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
-    setTimeout(animationBugFix, 100);
+
     setTimeout(resetMenu, 2000);
     turnCounter = 0;
   } else if (currentCpuPokemon === 2) {
@@ -643,14 +779,13 @@ let sendOutCpu = function () {
 
     document.querySelector("#cpu-actual").style.width =
       200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
-    setTimeout(animationBugFix, 100);
+
     setTimeout(resetMenu, 2000);
     turnCounter = 0;
   } else if (currentCpuPokemon === 3) {
     cpuPokemonName.textContent = cpuPokemon[currentCpuPokemon].name;
     document.querySelector("#cpu-pokemon img").src =
       "https://img.pokemondb.net/sprites/black-white/anim/normal/lumineon.gif";
-    setTimeout(animationBugFix, 100);
 
     document.querySelector("#cpu-actual").style.width =
       200 * cpuPokemon[currentCpuPokemon].percentWidth + "px";
@@ -770,77 +905,6 @@ let effectivenessCalc = function () {
   } else {
     effectiveness1 = 1;
   }
-};
-
-let newUserPokemon = function () {
-  switch (currentUserPokemon) {
-    case 0:
-      userPokemonName.textContent = "Marcy";
-      document.querySelector("#user-pokemon img").src =
-        "https://img.pokemondb.net/sprites/firered-leafgreen/back-normal/bulbasaur.png";
-      document.querySelector("#user-actual").style.width =
-        200 * userPokemon[currentUserPokemon].percentWidth + "px";
-      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
-        document.querySelector("#user-actual").style.backgroundColor = "red";
-      } else {
-        document.querySelector("#user-actual").style.backgroundColor =
-          "lightgreen";
-      }
-      currentHealthNum.textContent = `${Math.floor(
-        userPokemon[currentUserPokemon].currentHealth
-      )}/${userPokemon[currentUserPokemon].health}`;
-      break;
-    case 1:
-      userPokemonName.textContent = "Brisket";
-      document.querySelector("#user-pokemon img").src =
-        "https://img.pokemondb.net/sprites/emerald/back-normal/aggron.png";
-      document.querySelector("#user-actual").style.width =
-        200 * userPokemon[currentUserPokemon].percentWidth + "px";
-      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
-        document.querySelector("#user-actual").style.backgroundColor = "red";
-      } else {
-        document.querySelector("#user-actual").style.backgroundColor =
-          "lightgreen";
-      }
-      currentHealthNum.textContent = `${Math.floor(
-        userPokemon[currentUserPokemon].currentHealth
-      )}/${userPokemon[currentUserPokemon].health}`;
-      break;
-    case 2:
-      userPokemonName.textContent = "Fred";
-      document.querySelector("#user-pokemon img").src =
-        "https://img.pokemondb.net/sprites/emerald/back-normal/ariados.png";
-      document.querySelector("#user-actual").style.width =
-        200 * userPokemon[currentUserPokemon].percentWidth + "px";
-      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
-        document.querySelector("#user-actual").style.backgroundColor = "red";
-      } else {
-        document.querySelector("#user-actual").style.backgroundColor =
-          "lightgreen";
-      }
-      currentHealthNum.textContent = `${Math.floor(
-        userPokemon[currentUserPokemon].currentHealth
-      )}/${userPokemon[currentUserPokemon].health}`;
-      break;
-    case 3:
-      userPokemonName.textContent = "Worm";
-      document.querySelector("#user-pokemon img").src =
-        "https://img.pokemondb.net/sprites/heartgold-soulsilver/back-normal/giratina-origin.png";
-      document.querySelector("#user-actual").style.width =
-        200 * userPokemon[currentUserPokemon].percentWidth + "px";
-      if (userPokemon[currentUserPokemon].percentWidth < 0.25) {
-        document.querySelector("#user-actual").style.backgroundColor = "red";
-      } else {
-        document.querySelector("#user-actual").style.backgroundColor =
-          "lightgreen";
-      }
-      currentHealthNum.textContent = `${Math.floor(
-        userPokemon[currentUserPokemon].currentHealth
-      )}/${userPokemon[currentUserPokemon].health}`;
-      break;
-  }
-  turnCounter = 1;
-  setTimeout(cpuTurn, 3000);
 };
 
 let pickNewPokemon = function () {
@@ -1018,7 +1082,9 @@ let resetMenu = function () {
     .querySelector("#user-pokemon img")
     .classList.remove("userAttackAnimation");
   document.querySelector("#user-pokemon img").classList.remove("damageFlicker");
-  document.querySelector("#cpu-pokemon img").classList.remove("damageFlicker");
+  document
+    .querySelector("#cpu-pokemon img")
+    .classList.remove("cpuFaintAnimation");
 };
 
 let title = document.querySelector("#title");
