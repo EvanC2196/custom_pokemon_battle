@@ -133,9 +133,9 @@
   padding: 5px;
   border-radius: 10px;
   position: absolute;
-  top: 240px;
-  left: 300px;
-  background-color: rgb(240, 212, 175);
+  top: 225px;
+  left: 280px;
+  background-color: lightblue;
 }
 
 #user-max {
@@ -163,10 +163,10 @@
 
 #user-pokemon img {
   position: absolute;
-  top: 175px;
-  left: 20px;
-  height: 200px;
-  width: 200px;
+  top: 165px;
+  left: 40px;
+  height: 175px;
+  width: 175px;
   z-index: 0;
 }
 
@@ -181,9 +181,9 @@
   width: 250px;
   position: absolute;
   border-radius: 10px;
-  top: 25px;
+  top: 20px;
   right: 300px;
-  background-color: rgb(240, 212, 175);
+  background-color: lightcoral;
 }
 
 #cpu-name {
@@ -217,7 +217,7 @@
 #cpu-pokemon img {
   position: absolute;
   top: 25px;
-  right: 50px;
+  right: 68px;
   height: 150px;
   width: 150px;
   z-index: 1;
