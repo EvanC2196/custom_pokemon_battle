@@ -216,7 +216,7 @@
 
 #cpu-pokemon img {
   position: absolute;
-  top: 25px;
+  top: 15px;
   right: 68px;
   height: 150px;
   width: 150px;
@@ -319,6 +319,6 @@
   border-radius: 50%;
   position: absolute;
   right: 35px;
-  top: 125px;
+  top: 115px;
   z-index: 0;
 }
