@@ -583,6 +583,10 @@ let calcDamage = function (power) {
         userPokemon[currentUserPokemon].speed * 1.25;
     }
 
+    if (power === flamethrower) {
+      document.querySelector("#game").classList.add("flamethrower");
+    }
+
     setTimeout(effectivenessText, 1250);
 
     console.log(`power is ${power}`);
@@ -739,6 +743,7 @@ let changeHealth = function (i) {
 let inflictDamage = function () {
   title.textContent = "nicely done!";
   description.textContent = "";
+  document.querySelector("#game").classList.remove("flamethrower");
 
   if (damage >= cpuPokemon[currentCpuPokemon].currentHealth) {
     cpuPokemon[currentCpuPokemon].oldHealth =
@@ -763,7 +768,7 @@ let inflictDamage = function () {
     damage < cpuPokemon[currentCpuPokemon].currentHealth &&
     speedCounter === 1
   ) {
-    title.textContent = "oof, would not have been my first choice";
+    title.textContent = "";
     description.textContent = "";
 
     cpuPokemon[currentCpuPokemon].oldHealth =
@@ -782,12 +787,12 @@ let inflictDamage = function () {
     turnCounter = 1;
     console.log(cpuPokemon[currentCpuPokemon].oldHealth);
     console.log(cpuPokemon[currentCpuPokemon].currentHealth);
-    setTimeout(cpuTurn, 1500);
+    setTimeout(cpuTurn, 2500);
   } else if (
     damage < cpuPokemon[currentCpuPokemon].currentHealth &&
     speedCounter === 11
   ) {
-    title.textContent = "oof, would not have been my first choice";
+    title.textContent = "";
     description.textContent = "";
 
     cpuPokemon[currentCpuPokemon].oldHealth =
@@ -979,7 +984,7 @@ let inflictComputerDamage = function (power) {
       userPokemon[currentUserPokemon].currentHealth;
     userPokemon[currentUserPokemon].currentHealth = 0;
     console.log(userPokemon[currentUserPokemon]);
-
+    document.querySelector("#game").classList.add("thunderpunch");
     for (
       let i = userPokemon[currentUserPokemon].oldHealth;
       i >= userPokemon[currentUserPokemon].currentHealth;
@@ -1134,6 +1139,7 @@ let cpuTurn = function () {
       slot3.textContent = "";
       slot4.textContent = "";
       calcDamage(thunderPunch);
+      document.querySelector("#game").classList.add("thunderpunch");
     } else if (randomNum > 75 && randomNum <= 100) {
       turnCounter = 1;
       console.log("me");
