@@ -1308,3 +1308,5 @@ let mouseLeave = function () {
   title.textContent = `What will ${userPokemon[currentUserPokemon].name} do?`;
   description.textContent = "";
 };
+
+console.log("test");
